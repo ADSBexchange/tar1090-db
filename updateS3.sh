@@ -8,7 +8,7 @@ else
   git config user.name "${GIT_NAME}"
 
   # archive old tar1090-db
-  aws s3 mv "s3://${BUCKET_NAME}/${REPO}/latest" "s3://${BUCKET_NAME}/${REPO}/$(date +%F-%H-%M-%S-%N)"
+  aws s3 mv "s3://${BUCKET_NAME}/${REPO}/latest" "s3://${BUCKET_NAME}/${REPO}/$(date +%F-%H-%M-%S-%N)" --recursive
 
   # install packages required for update script
   yum install -y wget
