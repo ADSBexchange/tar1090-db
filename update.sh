@@ -13,13 +13,13 @@ function getGIT() {
 
 getGIT https://github.com/chrisglobe/adsbx-type-longnames-chrisglobe.git main "$(pwd)/longnames"
 
-wget -O newTypes.json --compression=auto https://raw.githubusercontent.com/Mictronics/readsb-protobuf/dev/webapp/src/db/types.json
+wget -O newTypes.json https://raw.githubusercontent.com/Mictronics/readsb-protobuf/dev/webapp/src/db/types.json
 wget -O mic-db.zip https://www.mictronics.de/aircraft-database/indexedDB_old.php
 unzip -o mic-db.zip
 
 wget -O basic-ac-db.json.gz https://downloads.adsbexchange.com/downloads/basic-ac-db.json.gz
 gunzip -c basic-ac-db.json.gz > basic-ac-db.json
-sed -i basic-ac-db.json \
+sed -i.bak basic-ac-db.json \
     -e 's#\\\\.##g' \
     -e 's#\\.##g' \
     -e 's#\\##g'
