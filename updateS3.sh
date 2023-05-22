@@ -19,7 +19,9 @@ else
   aws s3 cp db "s3://${BUCKET_NAME}/${REPO}/latest/db" --recursive
 
   # generate updated csv on csv branch of tar1090-db
+  git reset --hard HEAD
   ./csv.sh
+  git reset --hard HEAD
 
   # switch to branch to get latest file
   git checkout csv
