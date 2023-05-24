@@ -5,6 +5,7 @@ if [[ -z ${BUCKET_NAME} || -z ${GIT_EMAIL} || -z ${GIT_NAME} ]]; then
 else
   REPO="tar1090-db"
   PKG_MANAGER=$(command -v yum || command -v apt || command -v dnf)
+  echo "Using package manager: ${PKG_MANAGER}"
   git config user.email "${GIT_EMAIL}"
   git config user.name "${GIT_NAME}"
 
