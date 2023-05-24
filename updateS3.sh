@@ -4,6 +4,7 @@ if [[ -z ${BUCKET_NAME} || -z ${GIT_EMAIL} || -z ${GIT_NAME} ]]; then
     echo "The destination bucket name (BUCKET_NAME), git email (GIT_EMAIL), and git user name (GIT_NAME) are required as environment variables."
 else
   REPO="tar1090-db"
+  PKG_MANAGER=$(command -v yum || command -v apt || command -v dnf)
   git config user.email "${GIT_EMAIL}"
   git config user.name "${GIT_NAME}"
 
@@ -11,8 +12,8 @@ else
   aws s3 mv "s3://${BUCKET_NAME}/${REPO}/latest" "s3://${BUCKET_NAME}/${REPO}/$(date +%F-%H-%M-%S-%N)" --recursive
 
   # install packages required for update script
-  yum install -y wget
-  yum install -y p7zip
+  ${PKG_MANAGER} install -y wget
+  ${PKG_MANAGER} install -y p7zip
   ./update.sh
 
   # push updated db folder to S3
