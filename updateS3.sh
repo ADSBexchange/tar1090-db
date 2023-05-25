@@ -20,13 +20,8 @@ else
   # push updated db folder to S3
   aws s3 cp db "s3://${BUCKET_NAME}/${REPO}/latest/db" --recursive
 
-  # generate updated csv on csv branch of tar1090-db
-  git reset --hard HEAD
-  ./csv.sh
-  git reset --hard HEAD
-
-  # switch to branch to get latest file
-  git checkout csv
-  aws s3 cp ./aircraft.csv.gz "s3://${BUCKET_NAME}/${REPO}/latest/aircraft.csv.gz"
-  git checkout master
+  AC_CSV="aircraft.csv"
+  rm -f "${AC_CSV}.gz"
+  7za a -mx=9 "${AC_CSV}.gz" "${AC_CSV}"
+  aws s3 cp "./${AC_CSV}.gz" "s3://${BUCKET_NAME}/${REPO}/latest/${AC_CSV}.gz"
 fi
