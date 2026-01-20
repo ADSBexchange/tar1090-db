@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sqlite3, json, sys, csv, traceback
+import sqlite3, json, sys, csv, traceback, os
 import glob
 from contextlib import closing
 
@@ -180,6 +180,28 @@ if __name__ == '__main__':
                 if pia:
                     e = noblocks[addr] = {'f': '0010'}
 
+    # Load UAV database if it exists
+    uav_db_path = './uav-database.json'
+    if os.path.exists(uav_db_path):
+        with open(uav_db_path, 'rt', encoding='utf-8') as f:
+            for line in f:
+                try:
+                    a = json.loads(line)
+                except ValueError:
+                    continue
+                addr = a['icao'].upper()
+                if len(addr) < 6 or len(addr) > 6:
+                    print('ignoring bad addr: ' + str(addr))
+                    continue
+                e = noblocks.setdefault(addr, {})
+                e.setdefault('f', '0000')
+                if a.get('reg'): e['r'] = a['reg']
+                if a.get('icaotype'): e['t'] = a['icaotype']
+                if a.get('ownop'): e['ownop'] = a['ownop']
+                if a.get('year'): e['year'] = a['year']
+                if a.get('country'): e['country'] = a['country']
+                if a.get('country_code'): e['country_code'] = a['country_code']
+
     for k, v in noblocks.items():
         if 'f' in v and v['f'][2:] == '00':
             v['f'] = v['f'][:2]
@@ -228,7 +250,7 @@ if __name__ == '__main__':
         dkey = k[1:].upper()
 
         if v and bkey and dkey and bkey in blocks:
-            blocks[bkey][dkey] = [ v.get('r'), v.get('t'), v.get('f'), v.get('d') ]
+            blocks[bkey][dkey] = [ v.get('r'), v.get('t'), v.get('f'), v.get('d'), v.get('country'), v.get('country_code') ]
         else:
             print(k)
             print(bkey)
