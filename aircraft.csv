@@ -1,7 +1,0 @@
-# UAV-only database - minimal build for testing
-# Format: ICAO;Registration;Type;Flags;Description;Year;Owner;
-# This file contains only UAV entries for local development
-# ====================================================================================================
-000001;UAV-001;MR4;0000;;2024;Test Operator;
-000002;UAV-002;FWU;0000;;2024;Test Operator;
-#                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

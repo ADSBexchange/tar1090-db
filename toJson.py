@@ -78,6 +78,7 @@ if __name__ == '__main__':
 
     for i in range(16):
         blocks['%01X' % i] = {}
+    blocks['$'] = {}
 
 
     mil_long = []
@@ -181,6 +182,7 @@ if __name__ == '__main__':
                     e = noblocks[addr] = {'f': '0010'}
 
     # Load UAV database if it exists
+    # UAV entries are stored with a $ prefix to avoid collisions with regular ICAO addresses
     uav_db_path = './uav-database.json'
     if os.path.exists(uav_db_path):
         with open(uav_db_path, 'rt', encoding='utf-8') as f:
@@ -189,10 +191,11 @@ if __name__ == '__main__':
                     a = json.loads(line)
                 except ValueError:
                     continue
-                addr = a['icao'].upper()
-                if len(addr) < 6 or len(addr) > 6:
-                    print('ignoring bad addr: ' + str(addr))
+                raw_addr = a['icao'].upper()
+                if len(raw_addr) < 6 or len(raw_addr) > 6:
+                    print('ignoring bad UAV addr: ' + str(raw_addr))
                     continue
+                addr = '$' + raw_addr
                 e = noblocks.setdefault(addr, {})
                 e.setdefault('f', '0000')
                 if a.get('reg'): e['r'] = a['reg']
