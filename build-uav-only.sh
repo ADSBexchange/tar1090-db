@@ -53,7 +53,7 @@ with open('aircraft.csv', 'w', newline='', encoding='utf-8') as csvfile:
         icao = uav['icao'].upper()
         reg = uav.get('reg', '')
         icaotype = uav.get('icaotype', '')
-        flags = '0000'
+        flags = '00001'
         desc = ''
         year = uav.get('year', '')
         ownop = uav.get('ownop', '')
@@ -103,7 +103,7 @@ for uav in uavs:
         blocks['0'][icao[1:]] = [
             uav.get('reg', ''),
             uav.get('icaotype', ''),
-            '0000',
+            '00001',
             '',
             uav.get('country', ''),
             uav.get('country_code', '')

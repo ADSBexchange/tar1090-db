@@ -106,7 +106,7 @@ if __name__ == '__main__':
     useLongName = set([ "ZZZZ","SHIP","BALL","GLID","ULAC","GYRO","UHEL","TWR","GND","PARA","DRON","EMER","SERV" ])
 
     for k,v in noblocks.items():
-        v['f'] = v['f'] + '00'
+        v['f'] = v['f'] + '000'
         tc = v.get('t')
         if tc and tc not in useLongName:
             nT = newTypes.get(tc)
@@ -143,12 +143,12 @@ if __name__ == '__main__':
                     continue
                 e = noblocks.setdefault(addr, {})
 
-                e.setdefault('f', '0000')
+                e.setdefault('f', '00000')
 
                 f = e['f']
                 ladd = a.get('faa_ladd')
                 if ladd:
-                    e['f'] = f[:3] + '1'
+                    e['f'] = f[:3] + '1' + f[4:]
 
                 mil = a.get('mil')
                 if mil:
@@ -179,7 +179,7 @@ if __name__ == '__main__':
 
                 pia = a.get('faa_pia')
                 if pia:
-                    e = noblocks[addr] = {'f': '0010'}
+                    e = noblocks[addr] = {'f': '00100'}
 
     # Load UAV database if it exists
     # UAV entries are stored with a $ prefix to avoid collisions with regular ICAO addresses
@@ -197,7 +197,7 @@ if __name__ == '__main__':
                     continue
                 addr = '$' + raw_addr
                 e = noblocks.setdefault(addr, {})
-                e.setdefault('f', '0000')
+                e.setdefault('f', '00001')
                 if a.get('reg'): e['r'] = a['reg']
                 if a.get('icaotype'): e['t'] = a['icaotype']
                 if a.get('ownop'): e['ownop'] = a['ownop']
@@ -206,7 +206,7 @@ if __name__ == '__main__':
                 if a.get('country_code'): e['country_code'] = a['country_code']
 
     for k, v in noblocks.items():
-        if 'f' in v and v['f'][2:] == '00':
+        if 'f' in v and v['f'][2:] == '000':
             v['f'] = v['f'][:2]
 
     for row in mil_long:
