@@ -50,7 +50,7 @@ with open('aircraft.csv', 'w', newline='', encoding='utf-8') as csvfile:
     
     # Write UAV entries
     for uav in sorted(uavs, key=lambda x: x['icao']):
-        icao = uav['icao'].upper()
+        icao = '$' + uav['icao'].upper()
         reg = uav.get('reg', '')
         icaotype = uav.get('icaotype', '')
         flags = '00001'
