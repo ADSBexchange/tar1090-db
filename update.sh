@@ -14,7 +14,7 @@ function getGIT() {
 getGIT https://github.com/ADSBexchange/adsbx-type-longnames.git main "$(pwd)/longnames"
 
 wget -O newTypes.json https://raw.githubusercontent.com/Mictronics/readsb-protobuf/dev/webapp/src/db/types.json
-wget -O mic-db.zip https://www.mictronics.de/aircraft-database/indexedDB_old.php
+wget -O mic-db.zip https://raw.githubusercontent.com/Mictronics/aircraft-database/main/indexedDB_old.zip
 unzip -o mic-db.zip
 
 # wget -O basic-ac-db.json.gz https://downloads.adsbexchange.com/downloads/basic-ac-db.json.gz
