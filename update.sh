@@ -36,7 +36,7 @@ fi
 echo ""
 
 echo "[4/8] Downloading Mictronics aircraft database..."
-wget -O mic-db.zip https://www.mictronics.de/aircraft-database/indexedDB_old.php
+wget -O mic-db.zip https://raw.githubusercontent.com/Mictronics/aircraft-database/main/indexedDB_old.zip
 echo "  Done"
 echo ""
 
