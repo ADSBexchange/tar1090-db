@@ -1,0 +1,5 @@
+{
+  "MR4": ["Multi-Rotor Quadcopter", "MR4", "L"],
+  "MR6": ["Multi-Rotor Hexacopter", "MR6", "L"],
+  "FWU": ["Fixed-Wing UAV", "FWU", "L"]
+}
